@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Game</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+        <link rel="stylesheet" href="/css/core.css">
+        <link rel="stylesheet" href="http://www.google.com/fonts#UsePlace:use/Collection:Open+Sans:400,800,300">
+    </head>
+    <body ng-app="app">
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="page">
+            <div class="page-inner" ng-controller="AdminCtrl">
+                <div class="title">
+                    <h1>ng-countdown</h1>
+                </div>
+                <div class="letter-list js-letter-list-in">
+                  <div class="letter-list_inner">
+                    <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in generatedLetters" ng-click="selectLetter(letter, 'in')">
+                      <div class="letter_inner">{{letter.letter}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="controls" ng-hide="currentIndex == generatedLetters.length">
+                    <a href="#new" class="btn btn--small" ng-click="generateVowel()">Vowel</a>
+                    <a href="#new" class="btn btn--small" ng-click="generateConsonant()">Consonant</a>
+                </div>
+                <div class="scores">
+                    <div class="scores_title">Players</div>
+                    <ul>
+                        <li ng-repeat="user in users">{{user.name}} ({{ user.points }} points)<span><button ng-click="disqualify(user)" class="btn btn--small" ng-show="state == 'roundfinished'">Disqualify</button></span> <span ng-show="state == 'roundfinished'"><strong>{{user.word}}</strong> ({{user.word.length}})</strong></span></li>
+                    </ul>
+                    <div class="scores_footer" ng-hide="state == 'roundfinished'">
+                        <button class="btn" ng-disabled="currentIndex != generatedLetters.length || state != 'newround'" ng-click="startGame()">Start game</button>
+                    </div>
+                    <div class="scores_footer" ng-show="state == 'roundfinished'">
+                        <button class="btn" ng-click="nextRound()">Next Round!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/vendor/jquery-1.10.2.js"></script>
+		<script src="/js/vendor/angular.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.0.4.js"></script>
+		<script src="/app/app.js"></script>
+        <script src="/app/controllers/presenterController.js"></script>
+        <script src="/app/services/socketService.js"></script>
+    </body>
+</html>
