@@ -35,6 +35,8 @@ app.controller('GameCtrl', function($scope, socket) {
 			{ letter:"", selected: false },
 			{ letter:"", selected: false },
 		];
+
+		$scope.lastSelectedLetterIndex = -1;
 	}
 
 	reset();
@@ -84,8 +86,6 @@ app.controller('GameCtrl', function($scope, socket) {
 		reset();
 
 	});
-
-	$scope.lastSelectedLetterIndex = -1;
 
 	$scope.selectLetter = function(letter, array){
 		$scope.lastSelectedLetterIndex++;

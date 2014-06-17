@@ -38,14 +38,14 @@
                     </div>
                     <div class="letter-list js-letter-list-in">
                       <div class="letter-list_inner">
-                        <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in lettersIn" ng-click="selectLetter(letter, 'in')">
+                        <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in lettersIn" ng-click="roundState == 'playing' && selectLetter(letter, 'in')">
                           <div class="letter_inner">{{letter.letter}}</div>
                         </div>
                       </div>
                     </div>
                     <div class="letter-list js-letter-list-out">
                       <div class="letter-list_inner">
-                        <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in lettersOut" ng-click="roundState == 'playing' && selectLetter(letter, 'out')">
+                        <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in lettersOut">
                           <div class="letter_inner">{{letter.letter}}</div>
                         </div>
                       </div>
