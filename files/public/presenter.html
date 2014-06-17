@@ -45,6 +45,12 @@
                         <button class="btn" ng-click="nextRound()">Next Round!</button>
                     </div>
                 </div>
+                <div class="game">
+                    <div class="intro" >
+                        <span ng-show="roundState == 'countdown'">Game starts in <strong>{{presenterTimer}}</strong>.</span>
+                        <span ng-show="roundState == 'playing'">Round ends in <strong>{{presenterTimer}}</strong>.</span>
+                    </div>
+                </div>
             </div>
         </div>
 
