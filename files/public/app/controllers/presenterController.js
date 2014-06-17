@@ -59,7 +59,7 @@ app.controller('AdminCtrl', function($scope, socket) {
 
 	        count--;
 
-	        if(count == 0) {
+	        if(count == -1) {
 	            callback();
 
 	            clearInterval(timerId);
@@ -74,7 +74,7 @@ app.controller('AdminCtrl', function($scope, socket) {
 
 	        count--;
 
-	        if(count == 0) {
+	        if(count == -1) {
 	            callback();
 
 	            clearInterval(timerId);

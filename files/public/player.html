@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Game</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
 
         <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
 
@@ -38,7 +38,7 @@
                     </div>
                     <div class="letter-list js-letter-list-in">
                       <div class="letter-list_inner">
-                        <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in lettersIn" ng-click="roundState == 'playing' && selectLetter(letter, 'in')">
+                        <div class="letter" ng-class="{'letter--selected' : letter.selected, 'letter--invisible' : letter.letter == ''}" ng-repeat="letter in lettersIn" ng-click="selectLetter(letter, 'in')">
                           <div class="letter_inner">{{letter.letter}}</div>
                         </div>
                       </div>
@@ -49,6 +49,10 @@
                           <div class="letter_inner">{{letter.letter}}</div>
                         </div>
                       </div>
+                    </div>
+
+                    <div class="game_footer">
+                        <a href="#delete" class="btn" ng-click="lastSelectedLetterIndex >= 0 && undoLetter()">Undo</a>
                     </div>
                 </div>
                 <!-- /Game State -->

@@ -55,17 +55,6 @@ app.controller('GameCtrl', function($scope, socket) {
 		$scope.roundState = 'countdown';
 
 		$scope.timer = data.seconds;
-
-		$scope.lettersOut = [
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		{ letter:"", selected: false },
-		];
 	});
 
 	socket.on('game:round', function(data) {
@@ -96,45 +85,43 @@ app.controller('GameCtrl', function($scope, socket) {
 
 	});
 
+	$scope.lastSelectedLetterIndex = -1;
+
 	$scope.selectLetter = function(letter, array){
-		letter.selected = letter.selected ? false : true;
+		$scope.lastSelectedLetterIndex++;
 
-		if(array == 'in'){
-			$scope.inSelected = letter.selected ? true : false;
-		}else{
-			$scope.outSelected = letter.selected ? true : false;
-		}
+		letter.selected = true;
 
-		if($scope.inSelected && $scope.outSelected){
-			$scope.swapLetters();
-			$scope.inSelected = false;
-			$scope.outSelected = false;
+		$scope.lettersOut[$scope.lastSelectedLetterIndex].letter = letter.letter;
+
+		letter.letter = "";
+	}
+
+	$scope.undoLetter = function() {
+		var selectedLetter = $scope.lettersOut[$scope.lastSelectedLetterIndex];
+
+		if(selectedLetter != "")
+		{
+			var keepGoing = true;
+
+			// find an empty slot and put the letter there
+			angular.forEach($scope.lettersIn, function(letter, key){
+				
+
+				if(keepGoing && letter.selected){
+					letter.selected = false;
+					letter.letter = selectedLetter.letter;
+
+					selectedLetter.letter = "";
+					selectedLetter.selected = false;
+
+					$scope.lastSelectedLetterIndex--;
+
+					keepGoing = false;
+				}
+			});
 		}
 	}
-	
-	$scope.swapLetters = function(){
-		var inIndex = 0;
-		var outIndex = 0;
-
-		angular.forEach($scope.lettersIn, function(letter, key){
-			if(letter.selected){
-				letter.selected = false;
-				inIndex = key;
-			}
-		});
-
-		angular.forEach($scope.lettersOut, function(letter, key){
-			if(letter.selected){
-				letter.selected = false;
-				outIndex = key;
-			}
-		});
-
-		//swap letters
-		var inLetter = $scope.lettersIn[inIndex].letter;
-		$scope.lettersIn[inIndex].letter = $scope.lettersOut[outIndex].letter;
-		$scope.lettersOut[outIndex].letter = inLetter;
-	};
 
 	$scope.joinGame = function(){
 		console.log('join game');
