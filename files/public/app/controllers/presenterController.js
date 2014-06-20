@@ -66,7 +66,7 @@ app.controller('AdminCtrl', function($scope, $interval, socket) {
 		$scope.roundState = 'countdown';
 		
 
-	    $interval(function() {
+	    var interval = $interval(function() {
 	        socket.emit('game:countdown', { seconds: count });
 	        $scope.presenterTimer = count;
 	        count--;
@@ -74,7 +74,8 @@ app.controller('AdminCtrl', function($scope, $interval, socket) {
 	        if(count == -1) {
 	            callback();
 
-	            $interval.cancel();
+	            $interval.cancel(interval);
+	            interval = undefined;
 	        }
 	    }, 1000);
 	}
@@ -86,7 +87,7 @@ app.controller('AdminCtrl', function($scope, $interval, socket) {
 		$scope.roundState = 'playing';
 
 		var count = 10;
-	    $interval(function() {
+	    var interval = $interval(function() {
 	        socket.emit('game:round', { seconds: count });
 	        $scope.presenterTimer = count;
 	        count--;
@@ -94,7 +95,8 @@ app.controller('AdminCtrl', function($scope, $interval, socket) {
 	        if(count == -1) {
 	            callback();
 
-	            $interval.cancel();
+	            $interval.cancel(interval);
+	            interval = undefined;
 	        }
 	    }, 1000);
 	}

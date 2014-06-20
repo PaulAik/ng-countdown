@@ -48,7 +48,7 @@ app.controller('GameCtrl', function($scope, socket) {
 	socket.on('game:letterselected', function(data) {
 		console.log("Got new letter! " + data.letter);
 
-		$scope.lettersIn[selectedIndex] = { letter: data.letter, selected: false };
+		$scope.lettersIn[selectedIndex].letter = data.letter;
 
 		selectedIndex++;
 	});
